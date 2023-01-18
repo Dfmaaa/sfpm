@@ -1,0 +1,1 @@
+WD_D="." # User should change this. This will be the working directory of the program during installation and deletion operations.
