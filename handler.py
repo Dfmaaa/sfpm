@@ -7,4 +7,4 @@ def handle(x: list) -> None:
     command = x
     if command[0] == "help" and len(command) == 1:
         print(common.help_msg)
-    
+

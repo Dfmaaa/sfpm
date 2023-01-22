@@ -1,0 +1,2 @@
+#define PACKAGE_LIST "0677"
+#define PACKAGE_GROUPS_ONLY "0711"
