@@ -71,5 +71,6 @@ char *package_list(char *ip, int port, uint32_t buf_size){
         printf("[package_list] [strerror] %s\n",strerror(errno));
         return NULL;
     }
+    close(sock);
     return reply;
 }

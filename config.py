@@ -1,1 +1,2 @@
 WD_D="." # User should change this. This will be the working directory of the program during installation and deletion operations.
+SOURCES=".sfpm_sources" #Users can change this. This will be used in the command "list".
