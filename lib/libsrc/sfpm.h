@@ -7,4 +7,4 @@ struct lfs{
 };
 struct lfs lock(char *);
 int unlock(struct lfs);
-char* package_list(char*,int, uint32_t);
+void  package_list(char*,int, uint32_t);

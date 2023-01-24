@@ -24,11 +24,11 @@ def handle(x: list) -> None:
             #passing all sources to package_list()
             for entry in src_dic.keys():
                 print(f"Source: {entry}:",end="\n\t")
-                print(clib.package_list(src_dic[entry][0],src_dic[entry][1],src_dic[entry][3]))
+                clib.package_list(src_dic[entry][0],src_dic[entry][1],src_dic[entry][3])
         else:
             #assuming user listed specific sources    
             source_list=command[0:] 
             for entry in source_list:
                 print(f"Source: {entry}:",end="\n\t")
-                print(clib.package_list(src_dic[entry][0],src_dic[entry][1],src_dic[entry][3]))
+                clib.package_list(src_dic[entry][0],src_dic[entry][1],src_dic[entry][3])
     

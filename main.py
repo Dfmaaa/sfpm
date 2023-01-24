@@ -1,6 +1,8 @@
 import sys
+import os
 import handler as core
 import common
+import config
 #This will prevent keyboard interrupt tracebacks.
 def suppress_keyboard_interrupt() -> None:
     previous_hook=sys.excepthook
@@ -30,7 +32,7 @@ for x in sys.argv:
 if check==0:
     print(common.help_msg)
     sys.exit(0)
-
+os.chdir(config.WD_D)
 if cdex==0:
     core.handle(sys.argv)
 else:

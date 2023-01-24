@@ -42,34 +42,36 @@ int unlock(struct lfs ls){
     return 1;
 }
 //This function uses read() to read from the socket, and it doesn't polish the data read. It simply returns the buffer. The buffer is stored in the heap. It's the caller's responsibility to free memory. The function doesn't allocate 1 byte for the null terminator of the buffer.
-char *package_list(char *ip, int port, uint32_t buf_size){
+void package_list(char *ip, int port, uint32_t buf_size){
     int sock=socket(AF_INET,SOCK_STREAM,0);
     struct sockaddr_in s;
     bzero(&s,sizeof(struct sockaddr_in));
     if(sock<0){
         printf("[package_list] [strerror] %s\n",strerror(errno));
-        return NULL;
+        return;
     }
-    char *buffer=(char*)malloc(sizeof(char)*buf_size);
+    char buffer[buf_size];
     if(buffer==NULL){
         printf("[package_list] [strerror] %s\n",strerror(errno));
-        return NULL;
+        return;
     }
     s.sin_addr.s_addr=inet_addr(ip);
     s.sin_family=AF_INET;
     s.sin_port=port;
     if (connect(sock,(struct sockaddr*)&s,sizeof(struct sockaddr_in))<0){
         printf("[package_list] [strerror] %s\n",strerror(errno));
-        return NULL;
+        return;
     }
     if(send(sock,PACKAGE_LIST,strlen(PACKAGE_LIST),0)==-1){
         printf("[package_list] [strerror] %s\n",strerror(errno));
-        return NULL;
+        return;
     }
-    if(recv(sock,buffer,buf_size,0)==-1){
+    int r;
+    if((r=recv(sock,buffer,buf_size,0))==-1){
         printf("[package_list] [strerror] %s\n",strerror(errno));
-        return NULL;
+        return;
     }
     close(sock);
-    return buffer;
+    buffer[r+1]='\0';
+    printf("%s\n",buffer);
 }
