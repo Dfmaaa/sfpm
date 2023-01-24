@@ -45,7 +45,7 @@ int unlock(struct lfs ls){
 char *package_list(char *ip, int port, uint32_t buf_size){
     int sock=socket(AF_INET,SOCK_STREAM,0);
     struct sockaddr_in s;
-    bzero((void*)s,sizeof(struct sockaddr_in));
+    bzero(&s,sizeof(struct sockaddr_in));
     if(sock<0){
         printf("[package_list] [strerror] %s\n",strerror(errno));
         return NULL;
@@ -58,19 +58,18 @@ char *package_list(char *ip, int port, uint32_t buf_size){
     s.sin_addr.s_addr=inet_addr(ip);
     s.sin_family=AF_INET;
     s.sin_port=port;
-    if (connect(sock,(struct sockaddr*)&s,sizeof(sockaddr_in))<0){
+    if (connect(sock,(struct sockaddr*)&s,sizeof(struct sockaddr_in))<0){
         printf("[package_list] [strerror] %s\n",strerror(errno));
         return NULL;
     }
-    char reply[buf_size];
     if(send(sock,PACKAGE_LIST,strlen(PACKAGE_LIST),0)==-1){
         printf("[package_list] [strerror] %s\n",strerror(errno));
         return NULL;
     }
-    if(recv(sock,reply,buf_size,0)==-1){
+    if(recv(sock,buffer,buf_size,0)==-1){
         printf("[package_list] [strerror] %s\n",strerror(errno));
         return NULL;
     }
     close(sock);
-    return reply;
+    return buffer;
 }
