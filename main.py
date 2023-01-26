@@ -19,8 +19,6 @@ if __name__!="__main__":
 
 suppress_keyboard_interrupt()
 check=0;
-cdex=-1;
-
 for x in sys.argv:
     for y in common.commands:
         if x==y:
@@ -33,8 +31,4 @@ if check==0:
     print(common.help_msg)
     sys.exit(0)
 os.chdir(config.WD_D)
-if cdex==0:
-    core.handle(sys.argv)
-else:
-    # cdex-1 because the command itself must also be an element,
-    core.handle(sys.argv[(cdex-1):])
+core.handle(sys.argv[0:])
